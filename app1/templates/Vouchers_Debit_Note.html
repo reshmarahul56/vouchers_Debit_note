@@ -47,6 +47,29 @@
             width: 900px;
             height: 200px;
         }
+
+        .form-popup3 {
+            display: none;
+            position:absolute;
+            top: 100px;
+            right: 330px;
+            border: 1px solid #f1f1f1;
+            z-index: 9;
+            width: 900px;
+            height: 120px;
+        }
+
+        .form-popup4 {
+            display: none;
+            position:absolute;
+            top: 100px;
+            right: 330px;
+            border: 1px solid #f1f1f1;
+            z-index: 9;
+            width: 900px;
+            height: 120px;
+        }
+
     .form-popup1 {
     display: none;
             position: absolute;
@@ -295,6 +318,7 @@ const popup=(id)=>{
 
   const popup1=()=>{
     document.getElementById('pop2').style.display="block";
+    document.getElementById('rate3').value=id
 
    let a=document.getElementById('btt').value;
    let b=document.getElementById('bat').value;
@@ -332,6 +356,8 @@ const popup=(id)=>{
 
 
   const popup2=(id)=>{
+
+  
   document.getElementById('pop3').style.display="block";
    let a=document.getElementById('btt').value;
    let b=document.getElementById('bat').value;
@@ -367,6 +393,54 @@ const popup=(id)=>{
    }
 
   }
+
+
+  const popup5=(id)=>{
+  document.getElementById('pop4').style.display="block";
+   let a=document.getElementById('btt').value;
+   let b=document.getElementById('bat').value;
+   let c=document.getElementById('bt').value;
+   console.log(c);
+   console.log(b);
+   console.log(a);
+
+   if (a == "Yes"){
+    document.getElementById("track").classList.remove("hide");
+    document.getElementById("track1").classList.remove("hide");
+   }
+   else{
+    document.getElementById("track").classList.add("hide");
+    document.getElementById("track1").classList.add("hide");
+
+   };
+
+   if (b == "Yes"){
+    document.getElementById("expiry").classList.remove("hide");
+    document.getElementById("expiry1").classList.remove("hide");
+
+   }
+   else{
+    document.getElementById("expiry").classList.add("hide");
+    document.getElementById("expiry1").classList.add("hide");
+
+   }
+
+   if (c == "Yes"){
+    document.getElementById("branch").classList.remove("hide");
+    document.getElementById("branch1").classList.remove("hide");
+   }
+
+  }
+  function showname(){      
+            var name = document.getElementById("under");
+            var buyer = name.value;
+            document.getElementById("buyer").value= buyer;
+        }
+  function showname1(){      
+            var name1 = document.getElementById("under");
+            var mail = name1.value;
+            document.getElementById("mail").value= mail;
+        }
    function setmain2(){
             document.getElementById('under6').value='Main Location';
 
@@ -395,6 +469,15 @@ const popup=(id)=>{
           
         }
 
+        function closeForm9() {
+            
+            document.getElementById('pop3').style.display="none";
+        }
+        function closeForm10() {
+            
+            document.getElementById('pop4').style.display="none";
+        }
+
     function closeForm6() {
             
             document.getElementById('pop1').style.display="none";
@@ -410,6 +493,8 @@ const popup=(id)=>{
             document.getElementById('rate').value=rate_value;
             
             document.getElementById('value').value=total_value;
+
+            
         }
 
 
@@ -478,7 +563,7 @@ const popup=(id)=>{
         }
 
         document.getElementById("value2").value = localStorage.getItem("valuepass");
-
+   
 </script>
 <form action="{% url 'add_debit_note' %} " method="POST" class="post-form">
   {% csrf_token %}
@@ -495,7 +580,7 @@ const popup=(id)=>{
                 <div class="table-responsive">
             
                
-                          <h5>Party A/c Name:</h5><input type="text" name='partya/c' class="form-control" id="under" onclick="showgrp(); "></b>
+                          <h5>Party A/c Name:</h5><input type="text" name='partya/c' class="form-control" id="under" onchange="showname(); showname1();"  onclick="showgrp(); "></b>
                  
                           <div class="col-sm-12 m-1 p-0"> <label >Current Balance :</label>
                             <input type="text" id="currentbalance" style="width:100px;color: black;" name="currentbalance"  value="{{i.opening_blnc}}" readonly hidden>
@@ -535,10 +620,10 @@ const popup=(id)=>{
                               <input type="text" name='stock_item' class="form-control" id="under3" onclick="showgrp3();"></b>
                             </td>
                           
-                          <td><input type="number" name='quantity' id="quantity"   oninput="add_number()" placeholder='0.00' class="form-control"></td>
-                          <td><input type="number" name='rate' id="rate"  oninput="add_number()" placeholder='0.00' class="form-control"></td>
+                          <td><input type="number" name='quantity' id="quantity"    placeholder='0.00' class="form-control"></td>
+                          <td><input type="number" name='rate' id="rate"   placeholder='0.00' class="form-control"></td>
                           
-                          <td><input type="number" name='value'oninput="add()" id="value" placeholder='0.00' class="form-control" /></td>
+                          <td><input type="number" name='value' id="value" placeholder='0.00' class="form-control" /></td>
                           
                         </tr>
 
@@ -609,19 +694,19 @@ const popup=(id)=>{
                     {% for i in led %}
                    
                     {% if i.under == "Cash_in_Hand" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
                     {% endif %}
                     {% if i.under == "Bank_Accounts" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
                     {% if i.under == "Sundry_Debtors" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
                     {% if i.under == "Sundry_Creditors" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
                     {% endfor %}
@@ -629,19 +714,19 @@ const popup=(id)=>{
                     {% for i in led1 %}
                    
                     {% if i.under == "Cash_in_Hand" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
                     {% endif %}
                     {% if i.under == "Bank_Accounts" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
                     {% endif %}
                     {% if i.under == "Sundry_Debtors" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
                     {% if i.under == "Sundry_Creditors" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
                     {% endfor %}
@@ -794,8 +879,8 @@ const popup=(id)=>{
                   {% for i in data %}
                  
         
-                  <a  class="btns_prnt" onclick="setGroup4('{{i.name}}','{{i.id}}'); popup1();"  class="content " 
-                  style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
+                  <a  class="btns_prnt" onclick=" setGroup4('{{i.name}}','{{i.id}}','{{i.quantity}}'); popup1('{{i.rate}}');  "  class="content " 
+                  style="cursor:pointer;color:white">{{i.name}}<b style="float: right;">{{i.quantity}}</b></a><br>
                   
                   {% endfor %}
 
@@ -921,9 +1006,9 @@ const popup=(id)=>{
           </div> 
 
 
-          <div class="form-popup2 m-3" id="pop3">
+          <div class="form-popup3 m-3" id="pop3">
             <div class="row bg-info text-light p-2 m-0">
-                <div class="col-md-6"><b style="text-decoration: underline; text-align: center;" >Dispatch Details</b></div>
+                
                 <div class="col-md-6">
                     {% for i in tally %}
                     {{i.name}}
@@ -935,59 +1020,82 @@ const popup=(id)=>{
                 <div class="table-responsive-sm" style="background-color:rgba(0,0,0,0.4);">
                     <Table class="w-100 table text-center">
                        
-                        
-                        <tr>
+                      <tr>
+                        <h5 style="text-decoration: underline;text-align: center;">Dispatch Details</h5>
+                      </tr>
 
+
+                        <tr>
                           <td> 
-                            <h5>Tracking No(s):</h5>>
-                            </td>
+                            <h5>Tracking No(s):</h5>
+                          </td>
                           <td> 
                             <input type="text"   class="w-100 form-control" id="track">
-                            </td>
-                            <td> 
-                              <h5>Carrier Name/Agent:</h5>>
-                              </td>
-                          <td><input type="text"   class="w-100 form-control" id="carrier"> </td>
-                          
-                          <tr>
-                            <h5>Bill of Lading/LR-RR No:</h5>>
-                          </td>
-                        <td> 
-                          <input type="text"   class="w-100 form-control" id="bill">
                           </td>
                           <td> 
-                            <h5>Date:</h5>>
+                            <h5>Carrier Name/Agent:</h5>
+                          </td>
+                          <td><input type="text"   class="w-100 form-control" id="carrier"> </td>
+                        </tr>
+                          
+                        <tr>
+                            <td>
+                             <h5>Bill of Lading/LR-RR No:</h5>
                             </td>
-                        <td><input type="text"   class="w-100 form-control" id="date"> </td>
+                            <td> 
+                             <input type="text"   class="w-100 form-control" id="bill">
+                            </td>
+                            <td> 
+                             <h5>Date:</h5>
+                            </td>
+                            <td>
+                              <input type="date"   class="w-100 form-control" id="date"> 
+                            </td>
 
-                          </tr>
+                        </tr>
                           
                         
                         <tr>
                           <td>
-                          <h5>Motor Vehicle No:</h5>>
+                            <h5>Motor Vehicle No:</h5>
+                          </td>
+                          <td> 
+                            <input type="text"   class="w-100 form-control" id="motor">
+                          </td>
+                        </tr>
+                        
+                        
+                       <tr>
+                        
+                        <td colspan="6">
+                         <h5 style="text-decoration: underline;margin-left:10%;">Original Invoice Details</h5></td>
+                         
+                       </tr>
+
+
+                       <tr>
+                        <td>
+                          <h5>Original Invoice No:</h5>
                         </td>
-                      <td> 
-                        <input type="text"   class="w-100 form-control" id="motor">
+                        <td> 
+                          <input type="text"   class="w-100 form-control" id="Original">
+                        </td>
+
+                        <td>
+                          <h5>Date:</h5>
+                        </td>
+                        <td> 
+                          <input type="date"   class="w-100 form-control datepicker" id="Date" >
                         </td>
                       </tr>
-                        <hr>
-                      <h5 style="text-decoration: underline;text-align: center;">Original Invoice Details</h5>
-                      <tr>
-                        <td>
-                        <h5>Original Invoice No:</h5>>
-                      </td>
-                    <td> 
-                      <input type="text"   class="w-100 form-control" id="Original">
-                      </td>
+                      
+                    <tr>
 
-                      <td>
-                        <h5>Date:</h5>>
-                      </td>
-                    <td> 
-                      <input type="text"   class="w-100 form-control" id="Date">
-                      </td>
+
+                      <td colspan="6"><a href="#"><button onclick="closeForm9();  popup5('{{i.name}}');"  class="btn btn-info" style="font-size: 20px;">submit</button></a></td> 
+                 
                     </tr>
+                  
                     </Table>
                 </div>
                 
@@ -996,7 +1104,89 @@ const popup=(id)=>{
        
         </div> 
 
+        <div class="form-popup4 m-3" id="pop4">
+          <div class="row bg-info text-light p-2 m-0">
+              
+              <div class="col-md-6">
+                  {% for i in tally %}
+                  {{i.name}}
+              {% endfor %}
+              </div>
+          </div>
+          <div class="p-3" style="background-color:rgb(5, 1, 1);">
+              
+              <div class="table-responsive-sm" style="background-color:rgba(0,0,0,0.4);">
+                  <Table class="w-100 table text-center">
+                     
+                    <tr>
+                      <h5 style="text-decoration: underline;text-align: center;">Party Details</h5>
+                    </tr>
 
+
+                      <tr>
+                        <td colspan="6"> 
+                          <h5>Buyer (Bill to):</h5>
+                        </td>
+                        <td colspan="6"> 
+                          <input type="text"  name="buyer" id="buyer" class="w-100 form-control" id="track" onclick="showname()">
+                        </td>
+                        
+                      </tr>
+                        
+                      <tr>
+                          <td colspan="6">
+                           <h5>Mailing Name</h5>
+                          </td>
+                          <td colspan="6"> 
+                           <input type="text"   class="w-100 form-control" id="mail" onclick="showname1()">
+                          </td>
+                          
+
+                      </tr>
+                        
+                      
+                      <tr>
+                        <td colspan="6">
+                          <h5>Address:</h5>
+                        </td>
+                        <td colspan="6"> 
+                          <textarea   class="w-100 form-control" id="motor"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="6">
+                          <h5>State:</h5>
+                        </td>
+                        <td colspan="6"> 
+                          <input type="text"   class="w-100 form-control" id="motor">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="6">
+                          <h5>Country:</h5>
+                        </td>
+                        <td colspan="6"> 
+                          <input type="text"   class="w-100 form-control" id="motor" value="India" readonly>
+                        </td>
+                      </tr>
+                     
+
+
+                    
+                    
+                  <tr>
+
+                    <td colspan="6"><a href="#"><button onclick="closeForm10();" class="btn btn-info" style="font-size: 20px;">Submit</button></a></td> 
+               
+                  </tr>
+                
+                  </Table>
+              </div>
+              
+          </div>
+       
+     
+      </div> 
 
           <div class="form-popup2 m-3" id="pop2">
               <div class="row bg-info text-light p-2 m-0">
@@ -1028,7 +1218,7 @@ const popup=(id)=>{
                               </td>
                             
                             <td><input type="text" class="w-100 form-control" id="quantity3" onblur="passquantity1()"> </td>
-                            <td> <input type="text" class="w-100 form-control" id="rate3" onblur="passrate1()" ></td>
+                            <td> <input type="text" class="w-100 form-control" id="rate3" onblur="passrate1();" value="{{ i.rate }}"></td>
                             <td><input type="text" class="w-100 form-control" id="per" onblur="passper()"> </td>
                             <td> <input type="text" class="w-100 form-control" id="value3" onblur="passvalue1()"></td>
                             
@@ -1070,26 +1260,16 @@ const popup=(id)=>{
             $('#value3').val(quantity4 * rate4);    
         });
         
-        $('#value, #value2').on('input',function(){
+        $('#value, #value2').on('click',function(){
             var quantity5 = parseFloat($('#value').val()) || 0;
             var rate5 = parseFloat($('#value2').val()) || 0;
             $('#total_amount').val(quantity5 + rate5);    
         });
+
+    
           </script>           
             
-            <script>
-              var text9 = document.getElementById("value");
-              var text8 = document.getElementById("value2");
-              function add() {
-                var first_number = parseFloat(text9.value);
-                
-                 var second_number = parseFloat(text8.value);
-                
-                var result2 = first_number + second_number;
-                document.getElementById("total_amount").value = result2;
-              }
-             
-            </script>  
+           
 
          
 {% endblock %}

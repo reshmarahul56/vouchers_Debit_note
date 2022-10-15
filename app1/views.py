@@ -10480,9 +10480,13 @@ def add_debit_note(request):
                     amount1=amount1,
                     narration=narra,
                     total_amount=total_amount
-                    )          
+                    )       
+            
             Debit.save()
             print("added")
+
+
+            
             return redirect('Voucher_Debit_Note')
         return render(request,'Vouchers_Debit_Note.html',{'tally':tally})
     return redirect('/')
