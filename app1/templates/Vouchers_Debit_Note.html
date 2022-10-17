@@ -48,6 +48,17 @@
             height: 200px;
         }
 
+        .form-popup8 {
+            display: none;
+            position: fixed;
+            top: 250px;
+            right: 330px;
+            border: 1px solid #f1f1f1;
+            z-index: 9;
+            width: 900px;
+            height: 200px;
+        }
+
         .form-popup3 {
             display: none;
             position:absolute;
@@ -230,10 +241,13 @@
             document.getElementsByName('underhidden').value= underId;
         }
 
-        function setGroup3(under,underId){
+        function setGroup3(under,underId,qty){
             document.getElementById('under3').value= under;
             document.getElementById('myForm4').style.visibility= "hidden";
             document.getElementsByName('underhidden').value= underId;
+            u=document.getElementById('under3').value;
+            document.getElementById('newqty1').value=qty;
+            document.getElementById('newitem').value=u;
         }
 
         function setGroup4(under,underId){
@@ -393,8 +407,82 @@ const popup=(id)=>{
    }
 
   }
+  function showpartyname()
+    {
+        document.getElementById('ledger').hidden=false
+        document.getElementById('currentbalance').hidden=false
+        document.getElementById('cr').hidden=false
+    }
+    function showname(){
+            
+            var name = document.getElementById("partyname");
+            var mailingname = name.value;
+            document.getElementById("mailingname").value= mailingname;
+            document.getElementById('ledger').hidden=false
 
+        }
+    function showledger()
+        {
+            document.getElementById('tbody').hidden=false
+            document.getElementById('ledger2').hidden=false
+            document.getElementById('ledger').hidden=true
+            document.getElementById('currentbalance2').hidden=false
+        document.getElementById('cr2').hidden=false
+        }
+        function showstock()
+        {
+            document.getElementById('tbody').hidden=false
 
+        }
+  
+        function setvalue(val)
+    {
+         val= document.getElementById('credit');
+         v=1;
+            v=val.value + v.value;
+            document.getElementById('credit').value=v;
+    }
+    function setstock(names)
+    {
+        document.getElementById('stock').value=names;
+  }
+  function setpartyname(names,id){
+        
+        document.getElementById('partya/c').value=names;
+        document.getElementById('currentbalance').value=id
+       
+        
+    }
+    function setledger(names,id){
+        
+        document.getElementById('pur_led').value=names;
+        document.getElementById('currentbalance1').value=id
+
+       
+        
+    }
+
+  function setbalance()
+    {
+        document.getElementById('tbody2').hidden=false;
+        amount=Number(document.getElementById('total_amount').value)
+        curbal=Number(document.getElementById('currentbalance').value)
+        curbal1=Number(document.getElementById('currentbalance1').value)
+        
+        newcurbal=curbal-amount
+        newcurbal1=curbal1+amount
+        document.getElementById('newcurbal').value=newcurbal
+        document.getElementById('newcurbal1').value=newcurbal1
+        
+        qty=Number(document.getElementById('quantity').value)
+        
+        newqty=Number(document.getElementById('newqty1').value);
+        
+        newqty=newqty-qty
+        document.getElementById('newqty1').value=newqty
+        
+
+    }
   const popup5=(id)=>{
   document.getElementById('pop4').style.display="block";
    let a=document.getElementById('btt').value;
@@ -493,6 +581,8 @@ const popup=(id)=>{
             document.getElementById('rate').value=rate_value;
             
             document.getElementById('value').value=total_value;
+            document.getElementById('total_amount').value=total_value;
+
 
             
         }
@@ -550,6 +640,7 @@ const popup=(id)=>{
         }
 
         document.getElementById("value").value = localStorage.getItem("valuepass");
+      
 
         
     
@@ -611,7 +702,7 @@ const popup=(id)=>{
   
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody  name="tbody" id="tbody">
                         <tr>
                           
                           
@@ -624,23 +715,43 @@ const popup=(id)=>{
                           <td><input type="number" name='rate' id="rate"   placeholder='0.00' class="form-control"></td>
                           
                           <td><input type="number" name='value' id="value" placeholder='0.00' class="form-control" /></td>
-                          
-                        </tr>
-
-                        <tr>
-                          
-                          
-                            
                           <td>
-                            <input type="text" name='stock_item1' class="form-control" id="under4" onclick="showgrp4();"></b>
-                          </td>
-                        
-                        <td><input type="number" name='quantity2' id="quantity2"   oninput="add_number()" placeholder='0.00' class="form-control"></td>
-                        <td><input type="number" name='rate2' id="rate2"  oninput="add_number()" placeholder='0.00' class="form-control"></td>
-                        
-                        <td><input type="number" name='value2' oninput="add()" id="value2" placeholder='0.00' class="form-control" /></td>
-                        
-                      </tr>
+                            <input type="button" id="next" onclick="setbalance()" value="OK">
+                        </td>
+                        </tr>
+                        <tbody hidden name="tbody2" id="tbody2">
+                           
+                          <tr>
+                              <td>
+                              <input type="text" id="stockitem2" name="stockitem2" class="form-control" placeholder="" onclick="showgrp3()" style="width: 200px;">
+                              </td>
+                             
+                              <td>
+                                  <input type="text" name="quantity2" id="quantity2" class="form-control" placeholder="0" onkeyup="addamount()" style="width: 100px;">
+                                  </td>
+                          
+                              <td>
+                                  <input type="text" class="form-control" name="rate2" id="rate2" placeholder="0" style="width: 100px;">
+                                  </td>
+                                  
+                                      <td><input type="text" name='per2' id="per2"  oninput="add_number()" class="form-control" style="width: 100px;"></td>
+                                      </td>
+                                      
+                              <!--
+                              <td class="w-100 m-0 p-0 pl-3" style="cursor: pointer;"><a>June</a></td>
+                              <td class="w-25 m-0 p-0 text-center">dfs</td> -->
+                      
+                              <td>
+                              <input type="text" name="value2" id="value2" class="form-control" placeholder="0"  style="width: 100px;">
+                              </td>
+                              <td>
+                                  <input type="button" id="next" onclick="setbalance1()" value="OK">
+                              </td>
+                              <!--
+                              <td class="w-75 m-0 p-0 pl-3" style="cursor: pointer;"><a>July</a></td>
+                              <td class="w-25 m-0 p-0 text-center">dfs</td> -->
+                          </tr>
+                         
                         
                           </tbody></table>
                                                
@@ -651,17 +762,21 @@ const popup=(id)=>{
                             </div>
                             
                             <div class="col-md-3">
-                            <input type="number" class="form-control" name="total_amount" id="total_amount"  onblur="add()"  style="text-align:right; width:50%"></div><br><br><br><br>
+                            <input type="number" class="form-control" name="total_amount" id="total_amount"   style="text-align:right; width:50%"></div><br><br><br><br>
                               
                               <!--<div class="col-md-2">
                                
                             </div>-->
                           </div>
+                          <input type="text" name="newcurbal" class="form-control"  id="newcurbal" hidden   readonly>
+                          <input type="text" name="newcurbal1" class="form-control"   id="newcurbal1"  hidden readonly>
+                          <input type="text" name="newitem" class="form-control"   id="newitem" hidden readonly> 
+                          <input type="text" name="newqty1" class="form-control"   id="newqty1" hidden readonly>  
                           <!--<div class="row mt-3">
                             <div class="col-md-12">
                               <div class="notices">
                                 <div class="form-control">--><input class="btn btn-outline-info w-30 rounded-pill text-light" style="text-align: left;" type="button" onclick="newFunction()" value="Delete">
-                                  <button type="submit" style="float: right;" class="btn btn-outline-info w-45 rounded-pill text-light">
+                                  <button type="submit" style="float: right;" class="btn btn-outline-info w-45 rounded-pill text-light" >
                                   Save
                                 </button><!--</div>--><br>
                                 <div class="notice text-muted">
@@ -1188,7 +1303,7 @@ const popup=(id)=>{
      
       </div> 
 
-          <div class="form-popup2 m-3" id="pop2">
+          <div class="form-popup8 m-3" id="pop2">
               <div class="row bg-info text-light p-2 m-0">
                   <div class="col-md-6"><b>Stock Item Allocation</b></div>
                   <div class="col-md-6">
@@ -1218,7 +1333,8 @@ const popup=(id)=>{
                               </td>
                             
                             <td><input type="text" class="w-100 form-control" id="quantity3" onblur="passquantity1()"> </td>
-                            <td> <input type="text" class="w-100 form-control" id="rate3" onblur="passrate1();" value="{{ i.rate }}"></td>
+                            
+                            <td> <input type="text" class="w-100 form-control" id="rate3" onblur="passrate1()" value="{{i.rate}}"></td>
                             <td><input type="text" class="w-100 form-control" id="per" onblur="passper()"> </td>
                             <td> <input type="text" class="w-100 form-control" id="value3" onblur="passvalue1()"></td>
                             

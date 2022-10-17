@@ -10456,10 +10456,7 @@ def add_debit_note(request):
             quantity=request.POST['quantity']
             rate=request.POST['rate']
             amount=request.POST['value']
-            item_name1=request.POST['stock_item1']
-            quantity1=request.POST['quantity2']
-            rate1=request.POST['rate2']
-            amount1=request.POST['value2']
+            
             narra=request.POST['narra']
             total_amount=request.POST['total_amount']
             
@@ -10474,16 +10471,24 @@ def add_debit_note(request):
                     quantity=quantity,
                     rate=rate,
                     amount=amount,
-                    itemname1=item_name1,
-                    quantity1=quantity1,
-                    rate1=rate1,
-                    amount1=amount1,
+                    
                     narration=narra,
                     total_amount=total_amount
                     )       
             
             Debit.save()
-            print("added")
+            print("saved")
+            newcurbal=request.POST['newcurbal']
+            newcurbal1=request.POST['newcurbal1']
+            new=request.POST['newitem']
+            newqty1=request.POST['newqty1']
+            print(new)
+            print(newqty1)
+            print('hii')
+            
+            tally_ledger.objects.filter(name=partyaccname).update(opening_blnc=newcurbal)
+            tally_ledger.objects.filter(name=pur_led).update(opening_blnc=newcurbal1)
+            stock_itemcreation.objects.filter(name=new).update(quantity=newqty1)
 
 
             

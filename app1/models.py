@@ -1713,10 +1713,7 @@ class Vouchers_Debit_Note(models.Model):
     quantity=models.IntegerField() 
     rate=models.IntegerField()
     amount=models.IntegerField()
-    itemname1=models.CharField(max_length=225,default=True)
-    quantity1=models.IntegerField(null=True) 
-    rate1=models.IntegerField(null=True)
-    amount1=models.IntegerField(null=True)
+
     narration=models.CharField(max_length=225,default=True)
     total_amount=models.IntegerField()
 
