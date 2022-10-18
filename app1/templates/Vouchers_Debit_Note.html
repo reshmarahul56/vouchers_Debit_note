@@ -37,6 +37,19 @@
             width: 300px;
             height: 550px;
     }
+
+
+    .form-popup10 {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 1;
+            width:300px;
+            top:50px;
+            margin-top:100px;
+          }
     .form-popup2 {
             display: none;
             position: fixed;
@@ -168,6 +181,11 @@
       document.getElementById('myForm1').style.visibility= "visible";
       document.getElementById("myForm1").style.display = "block";
   }
+
+  function showgrp11(){
+      document.getElementById('myForm9').style.visibility= "visible";
+      document.getElementById("myForm9").style.display = "block";
+  }
   function showgrp1(){
       document.getElementById('myForm2').style.visibility= "visible";
       document.getElementById("myForm2").style.display = "block";
@@ -241,6 +259,11 @@
             document.getElementsByName('underhidden').value= underId;
         }
 
+        function setGroup5(under,underId){
+            document.getElementById('buyer').value= under;
+            document.getElementById('myForm9').style.visibility= "hidden";
+            document.getElementsByName('underhidden').value= underId;
+        }
         function setGroup3(under,underId,qty){
             document.getElementById('under3').value= under;
             document.getElementById('myForm4').style.visibility= "hidden";
@@ -281,11 +304,43 @@
         function closeForm8() {
         document.getElementById("underForm3").style.display = "none";
         }
+        function closeForm11() {
+        document.getElementById("myForm9").style.display = "none";
+        }
 
+        function closeForm12() {
+        document.getElementById("myFormStates").style.display = "none";
+        }
+
+        function setState(name){
+        
+        document.getElementById("select_state").value=name;
+        
+        
+        
+    }
+
+    function setDivision(name){
+        document.getElementById("select_state").value=name;
+    }
+    function setDistrict(name){
+        document.getElementById("select_state").value=name;
+    }
+    function addstate(){
+        newstate=document.getElementById("statename").value;
+        document.getElementById('new_state').innerHTML=newstate;
         
 
-  
 
+
+    }
+
+    function openFormStaes(){
+        
+        document.getElementById('myFormStates').style.visibility= "visible";
+        document.getElementById("myFormStates").style.display = "block";
+        }
+       
 </script>
 
 <script>
@@ -525,7 +580,7 @@ const popup=(id)=>{
             document.getElementById("buyer").value= buyer;
         }
   function showname1(){      
-            var name1 = document.getElementById("under");
+            var name1 = document.getElementById("buyer");
             var mail = name1.value;
             document.getElementById("mail").value= mail;
         }
@@ -813,7 +868,7 @@ const popup=(id)=>{
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
                     {% endif %}
                     {% if i.under == "Bank_Accounts" %}
-                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{i.name}}');"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); popup2('{{.name}}');"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
                     {% if i.under == "Sundry_Debtors" %}
@@ -1012,6 +1067,54 @@ const popup=(id)=>{
             <div class="col-sm-3  m-0 p-0"></div>   
 
 
+            <div class="form-popup ScrollStyle" id="myForm9" style="background-color:  #213b52; color:white;" >
+              <form action="" class="form-container1" >
+
+                <h6 style="background-color:rgb(17, 169, 240) ;color:white">List of Ledgers Account</h6>
+                  <button type="button" class="btn cancel close" onclick="closeForm11()">X</button>
+                  <a  href="" style="margin-left:180px; cursor:pointer; color: white" >Create New</a>  
+          
+              <hr >
+              <div >
+                  <table >
+                  <tr >
+
+          
+                  {% for i in led %}
+                 
+                  
+                  {% if i.under == "Sundry_Debtors" %}
+                  <a class="btns_prnt" onclick="setGroup5('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); "  class="content" 
+                  style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
+                  {% endif %}
+                  {% if i.under == "Sundry_Creditors" %}
+                  <a class="btns_prnt" onclick="setGroup5('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); "  class="content" 
+                  style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
+                  {% endif %}
+                  {% endfor %}
+
+                  {% for i in led1 %}
+                 
+                  
+                  {% if i.under == "Sundry_Debtors" %}
+                  <a class="btns_prnt" onclick="setGroup5('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); "  class="content" 
+                  style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
+                  {% endif %}
+                  {% if i.under == "Sundry_Creditors" %}
+                  <a class="btns_prnt" onclick="setGroup5('{{i.name}}','{{i.id}}','{{i.opening_blnc}}'); "  class="content" 
+                  style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
+                  {% endif %}
+                  {% endfor %}
+                  </tr>
+                  </table>
+              </div>
+              <input type="text" name="underhidden" hidden value="{{i.id}}">
+              </form>
+          </div>
+
+
+
+          <div class="col-sm-3  m-0 p-0"></div>
 
 
             <div class="form-popup5 ScrollStyle" id="underForm2" style="background-color: #213b52" >
@@ -1243,7 +1346,7 @@ const popup=(id)=>{
                           <h5>Buyer (Bill to):</h5>
                         </td>
                         <td colspan="6"> 
-                          <input type="text"  name="buyer" id="buyer" class="w-100 form-control" id="track" onclick="showname()">
+                          <input type="text"  name="buyer" id="buyer" class="w-100 form-control" onclick="showname();showgrp11(); ">
                         </td>
                         
                       </tr>
@@ -1273,7 +1376,7 @@ const popup=(id)=>{
                           <h5>State:</h5>
                         </td>
                         <td colspan="6"> 
-                          <input type="text"   class="w-100 form-control" id="motor">
+                          <input type="text"   class="w-100 form-control" id="select_state"name="state" class="form-control"  placeholder="select states" onclick="openFormStaes()">
                         </td>
                       </tr>
                       <tr>
@@ -1302,6 +1405,338 @@ const popup=(id)=>{
        
      
       </div> 
+
+
+
+
+      <div class="form-popup10 ScrollStyle" id="myFormStates"style="background-color:  #213b52; color:white;" >
+        {% comment %} <form action="/action_page.php" class="form-container " style="max-width:800px;"> {% endcomment %}
+          <div class="card">
+            
+                
+             
+              <h5 style="background-color:rgb(38, 97, 134) ; color:white; text-align: left; padding: 5px 0; width:100%;">List of States</h5>
+              <button type="button" class="btn cancel close" onclick="closeForm12()">X</button>
+              <a href="" data-toggle="modal" data-target="#myModal3">
+                       
+          
+                        <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="andman" onclick="setState('Andaman and Nicobar islands')" style="color:white;text-align: left;">Andaman and Nicobar islands</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;'>
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="andra" onclick="setState('AndraPradesh')" style="color:white;text-align: left;">AndraPradesh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="aru" onclick="setState('Arunachal Pradesh')"  style="color:white;text-align: left;">Arunachal Pradesh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="assam"  onclick="setState('Assam')" style="color:white;text-align: left;">Assam</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="bihar"  onclick="setState('Bihar')" style="color:white;text-align: left;">Bihar</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="chandi" onclick="setState('Chandigarh')" style="color:white;text-align: left;">Chandigarh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="chathisgarh" onclick="setState('Chathisgarh')" style="color:white;text-align: left;">Chathisgarh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="dadra" onclick="setState('Dadra & Nagar haveli')" style="color:white;text-align: left;">Dadra & Nagar haveli</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Delhi')" style="color:white;text-align: left;">Delhi</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Goa')"  style="color:white;text-align: left;">Goa</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Gujrat')"  style="color:white;text-align: left;">Gujrat</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Haryana')"  style="color:white;text-align: left;">Haryana</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Himachal Pradesh')" style="color:white;text-align: left;">Himachal Pradesh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Jammu & Kashmir')" style="color:white;text-align: left;">Jammu & Kashmir</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Jharkand')" style="color:white;text-align: left;">Jharkand</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Karnataka')" style="color:white;text-align: left;">Karnataka</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Kerala')" style="color:white;text-align: left;">Kerala</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Ladakh')" style="color:white;text-align: left;">Ladakh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Lakshadweep')" style="color:white;text-align: left;">Lakshadweep</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Madhya Pradesh)" style="color:white;text-align: left;">Madhya Pradesh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Maharashtra')" style="color:white;text-align: left;">Maharashtra</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Manipur')" style="color:white;text-align: left;">Manipur</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Meghalaya')"  style="color:white;text-align: left;">Meghalaya</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Mizoram')"  style="color:white;text-align: left;">Mizoram</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Nagaland')" style="color:white;text-align: left;">Nagaland</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Odisha')" style="color:white;text-align: left;">Odisha</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Puduchery')" style="color:white;text-align: left;">Puduchery</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Punjab')"  style="color:white;text-align: left;">Punjab</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Rajasthan')" style="color:white;text-align: left;">Rajasthan</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Sikkim')"  style="color:white;text-align: left;">Sikkim</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Tamilnadu')" style="color:white;text-align: left;">Tamilnadu</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Telengana')"  style="color:white;text-align: left;">Telengana</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun" onclick="setState('Tripura')"  style="color:white;text-align: left;">Tripura</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('Uthrakand')" style="color:white;text-align: left;">Uthrakhand</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('UttarPradesh')" style="color:white;text-align: left;">UttarPradesh</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="coun"  onclick="setState('West Bengal')" style="color:white;text-align: left;">West Bengal</div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="new_state" style="color:white;text-align: left;"></div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="new_state1" style="color:white;text-align: left;"></div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <a href='javascript:;' >
+                        <button  class="btns_prnt" >
+                        <div class="row"  >
+                            <div class="col-md-8" id="new_state2" style="color:white;text-align: left;"></div>
+                          
+                        </div>
+                        </button>
+                    </a>
+                    <br>
+                  
+          </div>   
+          
+  </div>
 
           <div class="form-popup8 m-3" id="pop2">
               <div class="row bg-info text-light p-2 m-0">
